@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "transaction_id": {
+        "type": ["null", "string"]
+      },
+      "transaction_type": {
+        "type": ["null", "string"]
+      },
+      "status": {
+        "type": ["null", "string"]
+      },
+      "source": {
+        "type": ["null", "string"]
+      },
+      "account_id": {
+        "type": ["null", "string"]
+      },
+      "account_name": {
+        "type": ["null", "string"]
+      },
+      "account_type": {
+        "type": ["null", "string"]
+      },
+      "is_paid_via_print_check": {
+        "type": ["null", "boolean"]
+      },
+      "price_precision": {
+        "type": ["null", "integer"]
+      },
+      "customer_id": {
+        "type": ["null", "string"]
+      },
+      "payee": {
+        "type": ["null", "string"]
+      },
+      "description": {
+        "type": ["null", "string"]
+      },
+      "currency_id": {
+        "type": ["null", "string"]
+      },
+      "currency_code": {
+        "type": ["null", "string"]
+      },
+      "currency_symbol": {
+        "type": ["null", "string"]
+      },
+      "debit_or_credit": {
+        "type": ["null", "string"]
+      },
+      "offset_account_name": {
+        "type": ["null", "string"]
+      },
+      "is_offsetaccount_matched": {
+        "type": ["null", "boolean"]
+      },
+      "reference_number": {
+        "type": ["null", "string"]
+      },
+      "imported_transaction_id": {
+        "type": ["null", "string"]
+      },
+      "is_rule_exist": {
+        "type": ["null", "boolean"]
+      },
+      "date": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "amount": {
+        "type": ["null", "number"]
+      },
+      "rule_details": {
+        "type": ["null", "array"]
+      }
+    }
+  }

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "contact_id": {
+      "type": ["null", "string"]
+    },
+    "contact_name": {
+      "type": ["null", "string"]
+    },
+    "company_name": {
+      "type": ["null", "string"]
+    },
+    "contact_type": {
+      "type": ["null", "string"]
+    },
+    "first_name": {
+      "type": ["null", "string"]
+    },
+    "last_name": {
+      "type": ["null", "string"]
+    },
+    "email": {
+      "type": ["null", "string"]
+    },
+    "status": {
+      "type": ["null", "string"]
+    },
+    "payment_terms_label": {
+      "type": ["null", "string"]
+    },
+    "currency_id": {
+      "type": ["null", "string"]
+    },
+    "currency_code": {
+      "type": ["null", "string"]
+    },
+    "phone": {
+      "type": ["null", "string"]
+    },
+    "mobile": {
+      "type": ["null", "string"]
+    },
+    "payment_terms": {
+      "type": ["null", "integer"]
+    },
+    "outstanding_receivable_amount": {
+      "type": ["null", "number"]
+    },
+    "unused_credits_receivable_amount": {
+      "type": ["null", "number"]
+    },
+    "created_time": {
+      "type": ["null", "string"],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    },
+    "last_modified_time": {
+      "type": ["null", "string"],
+      "format": "date-time",
+      "airbyte_type": "timestamp_with_timezone"
+    }
+  }
+}

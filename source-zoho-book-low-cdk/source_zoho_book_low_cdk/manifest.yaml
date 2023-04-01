@@ -1,0 +1,230 @@
+version: "0.29.0"
+
+definitions:
+  selector:
+    type: RecordSelector
+    extractor:
+      type: DpathExtractor
+      field_path: ["{{ parameters['data_field'] }}"]
+  retriever:
+    type: SimpleRetriever
+    $parameters:
+      url_base: "https://www.zohoapis.{% if config['location'].upper() == 'AU' %}com.au{% elif config['location'].upper() == 'US' %}com{% else %}{{config['location'].lower()}}{% endif %}/books/v3/"
+    record_selector:
+      $ref: "#/definitions/selector"
+    paginator:
+      type: DefaultPaginator
+      pagination_strategy:
+        type: PageIncrement
+        page_size: 200
+        start_from_page: 1
+      page_size_option:
+        field_name: "per_page"
+        inject_into: "request_parameter"
+      page_token_option:
+        type: "RequestOption"
+        inject_into: "request_parameter"
+        field_name: "page"
+    requester:
+      $ref: "#/definitions/requester"
+  
+  requester:
+    type: HttpRequester
+    url_base: "https://www.zohoapis.{% if config['location'].upper() == 'AU' %}com.au{% elif config['location'].upper() == 'US' %}com{% else %}{{config['location'].lower()}}{% endif %}/books/v3/"
+    http_method: "GET"
+    request_parameters:
+      organization_id: "{{ config['organization_id'] }}"
+    authenticator:
+      type: OAuthAuthenticator
+      token_refresh_endpoint: "https://accounts.zoho.{% if config['location'].upper() == 'AU' %}com.au{% elif config['location'].upper() == 'US' %}com{% else %}{{config['location'].lower()}}{% endif %}/oauth/v2/token"
+      client_id: "{{ config['client_id'] }}"
+      client_secret: "{{ config['client_secret'] }}"
+      refresh_token: "{{ config['refresh_token'] }}"
+
+  base_stream:
+    type: DeclarativeStream
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+  
+  incremental_sync:
+    type: DatetimeBasedCursor
+    datetime_format: "%Y-%m-%d"
+    start_datetime:
+      datetime: "{{ config['date_start'] }}"
+      datetime_format: "%Y-%m-%d"
+    end_datetime:
+      datetime: "{{ today_utc().strftime('%Y-%m-%d') }}"
+      datetime_format: "%Y-%m-%d"
+    step: "P1M"
+    cursor_granularity: "PT0.000001S"
+    end_time_option:
+      field_name: "date_end"
+      inject_into: "request_parameter"
+    start_time_option:
+      field_name: "date_start"
+      inject_into: "request_parameter"
+      
+  incremental_base_stream:
+    incremental_sync:
+      $ref: "#/definitions/incremental_sync"
+    $ref: "#/definitions/base_stream"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        request_parameters:
+          order_type: "asc"
+          order_by: "date"
+  
+  invoices:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "invoices"
+      data_field: "invoices"
+      path: "invoices"
+      cursor_field: "created_time"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+  
+  recurring_invoices:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "recurring_invoices"
+      data_field: "recurringinvoices"
+      path: "recurringinvoices"
+      cursor_field: "start_date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+  
+  bills:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "bills"
+      data_field: "bills"
+      path: "bills"
+      cursor_field: "created_time"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+  
+  contacts:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "contacts"
+      data_field: "contacts"
+      path: "contacts"
+      cursor_field: "created_time"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+  
+  recurring_bills:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "recurring_bills"
+      data_field: "recurringbills"
+      path: "recurringbills"
+      cursor_field: "created_time"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+  
+  banktransactions:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "banktransactions"
+      data_field: "banktransactions"
+      path: "banktransactions"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+  
+  vendor_payments:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "vendor_payments"
+      data_field: "vendorpayments"
+      path: "vendorpayments"
+      cursor_field: "created_time"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+streams:
+  - "#/definitions/invoices"
+  - "#/definitions/bills"
+  - "#/definitions/contacts"
+  - "#/definitions/banktransactions"
+  - "#/definitions/vendor_payments"
+  - "#/definitions/recurring_bills"
+  - "#/definitions/recurring_invoices"
+
+check:
+  type: CheckStream
+  stream_names:
+    - "invoices"
+    - "bills"
+    - contacts
+    - "vendor_payments"
+    - "banktransactions"
+    - "recurring_bills"
+    - "recurring_invoices"
+
+spec:
+  type: Spec
+  documentationUrl: https://docsurl.com
+  connection_specification:
+    $schema: http://json-schema.org/draft-07/schema#
+    title: Zoho Books Spec
+    type: object
+    required:
+      - access_token
+      - organization_id
+      - client_id
+      - client_secret
+      - refresh_token
+      - date_start
+      - location
+    properties:
+      # 'TODO: This schema defines the configuration required for the source. This usually involves metadata such as database and/or authentication information.':
+      access_token:
+        type: string
+        description: Access token to for Zoho books Oauth
+      organization_id:
+        type: string
+        description: the organization data to pull
+      client_id:
+        type: string
+        description: the organization data to pull
+      client_secret:
+        type: string
+        description: the organization data to pull
+      refresh_token:
+        type: string
+        description: the organization data to pull
+      date_start:
+        type: string
+        description: Start getting data from that date.
+        examples:
+          - "%Y-%m-%d"
+      location:
+        type: string
+        examples:
+          - US
+          - EU
+          - IN
+          - JP
+          - AU
+
