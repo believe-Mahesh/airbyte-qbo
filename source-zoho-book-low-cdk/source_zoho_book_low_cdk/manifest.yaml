@@ -77,6 +77,7 @@ definitions:
         request_parameters:
           order_type: "asc"
           order_by: "date"
+          organization_id: "{{ config['organization_id'] }}"
   
   invoices:
     $ref: "#/definitions/incremental_base_stream"
