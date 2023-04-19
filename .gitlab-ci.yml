@@ -1,0 +1,125 @@
+image: docker:19
+services:
+  - docker:19-dind
+
+variables:
+  #MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  # Instruct Testcontainers to use the daemon of DinD.
+  #DOCKER_HOST: "tcp://docker:2375"
+  # Improve performance with overlays.
+  #DOCKER_DRIVER: overlay2
+  #DOCKER_TLS_CERTDIR: ""
+  #GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+   # - .m2/repository
+    
+stages:
+  - test
+#   - package
+#   - release
+#   - deploy
+
+test-app:
+  image: python:latest
+  stage: test
+  script:
+    - echo "Test Pipeline"
+
+# package-app:
+#   image: maven:3-jdk-11
+#   stage: package
+#   script:
+#     - mvn package -DskipTests
+#   artifacts:
+#     paths:
+#       - target/
+#   only:
+#     - development
+#     - live
+
+# .publish-step:
+#   before_script:
+#     - amazon-linux-extras install docker
+#     - aws --version
+#     - docker --version
+#   script:
+#     - echo "Starting publish docker image to ECR"
+#     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ECR_ENDPOINT
+#     - docker build -t "$AWS_ECR_ENDPOINT/backend-usermanagement:$CI_ENVIRONMENT_NAME-$CI_PIPELINE_IID" -f docker/$CI_ENVIRONMENT_NAME/Dockerfile .
+#     - docker push "$AWS_ECR_ENDPOINT/backend-usermanagement:$CI_ENVIRONMENT_NAME-$CI_PIPELINE_IID"
+#     - echo "Published docker image to ECR"
+
+# .deploy-step:
+#   before_script:
+#     - pip install awscli
+#     - apt update && apt -y install jq
+#   script:
+#     - echo "Starting to deploy to ECS"
+#     # Describe existing task definition
+#     - TASK_DEF=$(aws ecs describe-task-definition --task-definition "$AWS_ECS_TASKDEF" --region "${AWS_DEFAULT_REGION}")
+#     # Collect the required configuration from the existing and add credential for Gitlab
+#     - NEW_DEF=$(echo $TASK_DEF | jq --arg IMAGE "$AWS_ECR_ENDPOINT/backend-usermanagement:$CI_ENVIRONMENT_NAME-$CI_PIPELINE_IID" '.taskDefinition.containerDefinitions[0].image = $IMAGE | .taskDefinition.containerDefinitions')
+#     #- FINAL_DEF=$(echo $NEW_DEF | jq --arg ENVVAL '[{"name":"AWS_ACCESS_KEY_ID","value":"'$AWS_ACCESS_KEY_ID'" }, {"name":"AWS_SECRET_ACCESS_KEY","value":"'$AWS_SECRET_ACCESS_KEY'"}]' '.[0].environment = $ENVVAL | .' | sed 's/\\"/"/g' | sed 's/""/"/g' | sed 's/"\[/\[/g' | sed 's/\]"/\]/g')
+#     - CPU=$(echo $TASK_DEF | jq -r '.taskDefinition.cpu')
+#     - MEMORY=$(echo $TASK_DEF | jq -r '.taskDefinition.memory')
+#     - ARN=$(echo $TASK_DEF | jq -r '.taskDefinition.executionRoleArn')
+#     - echo "Access key Id ${AWS_ACCESS_KEY_ID}"
+#     # Registering new container definition
+#     - echo "Registering new container definition..."
+#     - aws ecs register-task-definition --region "${AWS_DEFAULT_REGION}" --family "${AWS_ECS_TASKDEF}" --container-definitions "${NEW_DEF}" --cpu ${CPU} --memory ${MEMORY} --execution-role-arn ${ARN} --network-mode "awsvpc" --requires-compatibilities "FARGATE"
+#     # Updating Fargate service with new container definition
+#     - echo "Updating the service..."
+#     - aws ecs update-service --region "${AWS_DEFAULT_REGION}" --cluster "${AWS_ECS_CLUSTER}" --service "${AWS_ECS_SERVICE}"  --task-definition "${AWS_ECS_TASKDEF}" --desired-count "1"
+#     # Collecting new task ARN and verifying that it's running
+#     - TASK_ARN=$(aws ecs list-tasks --region "${AWS_DEFAULT_REGION}" --cluster "${AWS_ECS_CLUSTER}" --service-name "${AWS_ECS_SERVICE}")
+#     - TASK_ID=$(echo $TASK_ARN | jq -r '.taskArns[0]' | awk -F/ '{print $NF}')
+#     - echo "New task ${TASK_ID} is running."
+#     - aws ecs describe-tasks --region "${AWS_DEFAULT_REGION}" --cluster "${AWS_ECS_CLUSTER}" --tasks "${TASK_ID}"
+#     - echo "Deploy to ECS completed successfully"
+
+# publish-docker-image-development:
+#   stage: release
+#   image:
+#     name: amazon/aws-cli
+#     entrypoint: [""]
+#   services:
+#     - docker:dind
+#   extends: .publish-step
+#   environment:
+#     name: development
+#   only:
+#     - development
+
+# publish-docker-image-live:
+#   stage: release
+#   image:
+#     name: amazon/aws-cli
+#     entrypoint: [""]
+#   services:
+#     - docker:dind
+#   extends: .publish-step
+#   environment:
+#     name: live
+#   only:
+#     - live
+
+# deploy-development:
+#   stage: deploy
+#   image: python:latest
+#   extends: .deploy-step
+#   environment:
+#     name: development
+#   only:
+#     - development
+
+# deploy-live:
+#   stage: deploy
+#   image: python:latest
+#   extends: .deploy-step
+#   environment:
+#     name: live
+#   only:
+#     - live
