@@ -52,11 +52,11 @@ definitions:
     type: DatetimeBasedCursor
     datetime_format: "%Y-%m-%d"
     start_datetime:
-      datetime: "{{ config['date_start'] }}"
-      datetime_format: "%Y-%m-%d"
+      datetime: "{{ config['date_start']+'T00:00:00+0000' }}"
+      datetime_format: "%Y-%m-%dT%H:%M:%S%z"
     end_datetime:
-      datetime: "{{ today_utc().strftime('%Y-%m-%d') }}"
-      datetime_format: "%Y-%m-%d"
+      datetime: "{{ today_utc().strftime('%Y-%m-%d')+'T00:00:00+0000' }}"
+      datetime_format: "%Y-%m-%dT%H:%M:%S%z"
     step: "P1M"
     cursor_granularity: "PT0.000001S"
     end_time_option:
