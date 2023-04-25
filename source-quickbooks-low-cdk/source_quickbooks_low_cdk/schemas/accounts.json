@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": ["null", "string"]
+    },
+    "name": {
+      "type": ["null", "string"]
+    },
+    "SubAccount": {
+      "type": ["null", "boolean"]
+    },
+    "FullyQualifiedName": {
+      "type": ["null", "string"]
+    },
+    "Active": {
+      "type": ["null", "boolean"]
+    },
+    "Classification": {
+      "type": ["null", "string"]
+    },
+    "AccountType": {
+      "type": ["null", "string"]
+    },
+    "AccountSubType": {
+      "type": ["null", "string"]
+    },
+    "CurrentBalance": {
+      "type": ["null", "number"]
+    },
+    "CurrentBalanceWithSubAccounts": {
+      "type": ["null", "number"]
+    },
+    "CurrencyRef": {
+      "type": ["null", "array"]
+    },
+    "domain": {
+      "type": ["null", "array"]
+    },
+    "sparse": {
+      "type": ["null", "boolean"]
+    },
+    "SyncToken": {
+      "type": ["null", "string"]
+    },
+    "MetaData": {
+      "type": ["null", "array"]
+    }
+  }
+}
