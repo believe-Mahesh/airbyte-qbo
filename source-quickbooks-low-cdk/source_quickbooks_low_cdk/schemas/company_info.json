@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": ["null", "string"]
+      },
+      "CompanyName": {
+        "type": ["null", "string"]
+      },
+      "LegalName": {
+        "type": ["null", "string"]
+      },
+      "CompanyStartDate": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "Balance": {
+        "type": ["null", "number"]
+      },
+      "sparse": {
+        "type": ["null", "boolean"]
+      },
+      "CompanyAddr": {
+        "type": ["null", "array"]
+      },
+      "CustomerCommunicationAddr": {
+        "type": ["null", "array"]
+      },
+      "CustomerCommunicationEmailAddr": {
+        "type": ["null", "array"]
+      },
+      "PrimaryPhone": {
+        "type": ["null", "array"]
+      },
+      "LegalAddr": {
+        "type": ["null", "array"]
+      },
+      "MetaData": {
+        "type": ["null", "array"]
+      },
+      "Email": {
+        "type": ["null", "array"]
+      },
+      "WebAddr": {
+        "type": ["null", "array"]
+      },
+      "NameValue": {
+        "type": ["null", "array"]
+      },
+      "FiscalYearStartMonth": {
+        "type": ["null", "string"]
+      },
+      "SupportedLanguages": {
+        "type": ["null", "string"]
+      },
+      "domain": {
+        "type": ["null", "string"]
+      },
+      "Country": {
+        "type": ["null", "string"]
+      }
+    }
+  }
+  

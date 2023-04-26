@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": ["null", "string"]
+      },
+      "AllowIPNPayment": {
+        "type": ["null", "boolean"]
+      },
+      "AllowOnlinePayment": {
+        "type": ["null", "boolean"]
+      },
+      "AllowOnlineCreditCardPayment": {
+        "type": ["null", "boolean"]
+      },
+      "AllowOnlineACHPayment": {
+        "type": ["null", "boolean"]
+      },
+      "domain": {
+        "type": ["null", "string"]
+      },
+      "sparse": {
+        "type": ["null", "boolean"]
+      },
+      "SyncToken": {
+        "type": ["null", "string"]
+      },
+      "MetaData": {
+        "type": ["null", "array"]
+      },
+      "CustomField": {
+        "type": ["null", "array"]
+      },
+      "DocNumber": {
+        "type": ["null", "string"]
+      },
+      "TxnDate": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "CurrencyRef": {
+        "type": ["null", "array"]
+      },
+      "LinkedTxn": {
+        "type": ["null", "array"]
+      },
+      "Line": {
+        "type": ["null", "array"]
+      },
+      "TxnTaxDetail": {
+        "type": ["null", "array"]
+      },
+      "CustomerRef": {
+        "type": ["null", "array"]
+      },
+      "CustomerMemo": {
+        "type": ["null", "array"]
+      },
+      "BillAddr": {
+        "type": ["null", "array"]
+      },
+      "ShipAddr": {
+        "type": ["null", "array"]
+      },
+      "SalesTermRef": {
+        "type": ["null", "array"]
+      },
+      "DueDate": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "TotalAmt": {
+        "type": ["null", "number"]
+      },
+      "ApplyTaxAfterDiscount": {
+        "type": ["null", "boolean"]
+      },
+      "PrintStatus": {
+        "type": ["null", "string"]
+      },
+      "EmailStatus": {
+        "type": ["null", "string"]
+      },
+      "BillEmail": {
+        "type": ["null", "array"]
+      },
+      "Balance": {
+        "type": ["null", "number"]
+      }
+    }
+  }
+  

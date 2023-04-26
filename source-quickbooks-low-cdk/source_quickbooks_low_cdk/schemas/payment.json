@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": ["null", "string"]
+      },
+      "CustomerRef": {
+        "type": ["null", "array"]
+      },
+      "DepositToAccountRef": {
+        "type": ["null", "array"]
+      },
+      "TotalAmt": {
+        "type": ["null", "number"]
+      },
+      "UnappliedAmt": {
+        "type": ["null", "number"]
+      },
+      "ProcessPayment": {
+        "type": ["null", "boolean"]
+      },
+      "domain": {
+        "type": ["null", "string"]
+      },
+      "sparse": {
+        "type": ["null", "boolean"]
+      },
+      "SyncToken": {
+        "type": ["null", "string"]
+      },
+      "MetaData": {
+        "type": ["null", "array"]
+      },
+      "TxnDate": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "CurrencyRef": {
+        "type": ["null", "array"]
+      },
+      "Line": {
+        "type": ["null", "array"]
+      }
+    }
+  }
+  

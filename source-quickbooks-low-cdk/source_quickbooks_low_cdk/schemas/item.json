@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": ["null", "string"]
+      },
+      "Name": {
+        "type": ["null", "string"]
+      },
+      "Description": {
+        "type": ["null", "string"]
+      },
+      "Active": {
+        "type": ["null", "boolean"]
+      },
+      "FullyQualifiedName": {
+        "type": ["null", "string"]
+      },
+      "Taxable": {
+        "type": ["null", "boolean"]
+      },
+      "UnitPrice": {
+        "type": ["null", "number"]
+      },
+      "IncomeAccountRef": {
+        "type": ["null", "array"]
+      },
+      "Type": {
+        "type": ["null", "string"]
+      },
+      "TrackQtyOnHand": {
+        "type": ["null", "boolean"]
+      },
+      "PurchaseCost": {
+        "type": ["null", "number"]
+      },
+      "domain": {
+        "type": ["null", "string"]
+      },
+      "sparse": {
+        "type": ["null", "boolean"]
+      },
+      "MetaData": {
+        "type": ["null", "array"]
+      },
+      "SyncToken": {
+        "type": ["null", "string"]
+      }
+    }
+  }
+  
