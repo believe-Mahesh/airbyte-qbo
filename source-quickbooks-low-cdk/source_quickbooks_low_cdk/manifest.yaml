@@ -45,16 +45,88 @@ definitions:
     $parameters:
       path: "/query?query=Select * from Bill"
       data_field: "Bill"
+  bill_payments_stream:
+    $ref: "#/definitions/base_stream"
+    name: "bill_payments"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from BillPayment"
+      data_field: "BillPayment"
+  company_info_stream:
+    $ref: "#/definitions/base_stream"
+    name: "company_info"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from CompanyInfo"
+      data_field: "CompanyInfo"
+  customer_stream:
+    $ref: "#/definitions/base_stream"
+    name: "customer"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from Customer"
+      data_field: "Customer"
+  invoice_stream:
+    $ref: "#/definitions/base_stream"
+    name: "invoice"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from Invoice"
+      data_field: "Invoice"
+  item_stream:
+    $ref: "#/definitions/base_stream"
+    name: "item"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from Item"
+      data_field: "Item"
+  journal_entry_stream:
+    $ref: "#/definitions/base_stream"
+    name: "item"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from JournalEntry"
+      data_field: "JournalEntry"
+  payment_stream:
+    $ref: "#/definitions/base_stream"
+    name: "payment"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from Payment"
+      data_field: "Payment"
+  payment_stream:
+    $ref: "#/definitions/base_stream"
+    name: "vendor"
+    primary_key: "id"
+    $parameters:
+      path: "/query?query=Select * from Vendor"
+      data_field: "Vendor"
 
 streams:
   - "#/definitions/accounts_stream"
   - "#/definitions/bills_stream"
+  - "#/definitions/bill_payments_stream"
+  - "#/definitions/company_info_stream"
+  - "#/definitions/customer_stream"
+  - "#/definitions/invoice_stream"
+  - "#/definitions/item_stream"
+  - "#/definitions/journal_entry_stream"
+  - "#/definitions/payment_stream"
+  - "#/definitions/payment_stream"
 
 check:
   type: CheckStream
   stream_names:
     - "accounts"
     - "bills"
+    - "bill_payments"
+    - "company_info"
+    - "customer"
+    - "invoice"
+    - "item"
+    - "journal_entry"
+    - "payment"
+    - "vendor"
 
 spec:
   type: Spec
