@@ -94,7 +94,7 @@ definitions:
     $parameters:
       path: "/query?query=Select * from Payment"
       data_field: "Payment"
-  payment_stream:
+  vendor_stream:
     $ref: "#/definitions/base_stream"
     name: "vendor"
     primary_key: "id"
@@ -112,7 +112,7 @@ streams:
   - "#/definitions/item_stream"
   - "#/definitions/journal_entry_stream"
   - "#/definitions/payment_stream"
-  - "#/definitions/payment_stream"
+  - "#/definitions/vendor_stream"
 
 check:
   type: CheckStream
