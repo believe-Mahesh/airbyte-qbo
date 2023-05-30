@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "expense_id": {
+        "type": ["null", "string"]
+      },
+      "date": {
+        "type": ["null", "string"],
+        "format": "date"
+      },
+      "account_name": {
+        "type": ["null", "string"]
+      },
+      "description": {
+        "type": ["null", "string"]
+      },
+      "currency_id": {
+        "type": ["null", "string"]
+      },
+      "currency_code": {
+        "type": ["null", "string"]
+      },
+      "bcy_total": {
+        "type": ["null", "number"]
+      },
+      "bcy_total_without_tax": {
+        "type": ["null", "number"]
+      },
+      "total": {
+        "type": ["null", "number"]
+      },
+      "total_without_tax": {
+        "type": ["null", "number"]
+      },
+      "is_billable": {
+        "type": ["null", "boolean"]
+      },
+      "reference_number": {
+        "type": ["null", "string"]
+      },
+      "customer_id": {
+        "type": ["null", "string"]
+      },
+      "customer_name": {
+        "type": ["null", "string"]
+      },
+      "status": {
+        "type": ["null", "string"]
+      },
+      "created_time": {
+        "type": ["null", "string"],
+        "format": "date-time",
+        "airbyte_type": "timestamp_with_timezone"
+      },
+      "last_modified_time": {
+        "type": ["null", "string"],
+        "format": "date-time",
+        "airbyte_type": "timestamp_with_timezone"
+      },
+      "expense_receipt_name": {
+        "type": ["null", "string"]
+      },
+      "mileage_rate": {
+        "type": ["null", "string"]
+      },
+      "mileage_unit": {
+        "type": ["null", "string"]
+      },
+      "expense_type": {
+        "type": ["null", "string"]
+      },
+      "start_reading": {
+        "type": ["null", "string"]
+      },
+      "end_reading": {
+        "type": ["null", "string"]
+      }
+      
+    }
+  }
