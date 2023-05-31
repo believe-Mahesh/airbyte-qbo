@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "account_id": {
+        "type": ["null", "string"]
+      },
+      "account_name": {
+        "type": ["null", "string"]
+      },
+      "account_code": {
+        "type": ["null", "string"]
+      },
+      "currency_id": {
+        "type": ["null", "string"]
+      },
+      "currency_code": {
+        "type": ["null", "string"]
+      },
+      "account_type": {
+        "type": ["null", "string"]
+      },
+      "account_number": {
+        "type": ["null", "string"]
+      },
+      "uncategorized_transactions": {
+        "type": ["null", "number"]
+      },
+      "total_unprinted_checks": {
+        "type": ["null", "number"]
+      },
+      "is_active": {
+        "type": ["null", "boolean"]
+      },
+      "balance": {
+        "type": ["null", "number"]
+      },
+      "bank_balance": {
+        "type": ["null", "number"]
+      },
+      "bcy_balance": {
+        "type": ["null", "number"]
+      },
+      "bank_name": {
+        "type": ["null", "string"]
+      },
+      "routing_number": {
+        "type": ["null", "string"]
+      },
+      "is_primary_account": {
+        "type": ["null", "boolean"]
+      },
+      "is_paypal_account": {
+        "type": ["null", "boolean"]
+      }
+      
+    }
+  }

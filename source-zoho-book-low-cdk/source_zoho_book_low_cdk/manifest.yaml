@@ -113,10 +113,10 @@ definitions:
       requester:
         $ref: "#/definitions/incremental_base_stream/retriever/requester"
   
-  banktransactions:
+  bank_transactions:
     $ref: "#/definitions/incremental_base_stream"
     $parameters:
-      name: "banktransactions"
+      name: "bank_transactions"
       data_field: "banktransactions"
       path: "banktransactions"
       cursor_field: "date"
@@ -137,23 +137,218 @@ definitions:
       requester:
         $ref: "#/definitions/incremental_base_stream/retriever/requester"
 
+  customer_payments:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "customer_payments"
+      data_field: "customerpayments"
+      path: "customerpayments"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  journals:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "journals"
+      data_field: "journals"
+      path: "journals"
+      cursor_field: "journal_date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  vendor_credits:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "vendor_credits"
+      data_field: "vendorcredits"
+      path: "vendorcredits"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  bank_accounts:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "bank_accounts"
+      data_field: "bankaccounts"
+      path: "bankaccounts"
+      cursor_field: "account_id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  credit_notes:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "credit_notes"
+      data_field: "creditnotes"
+      path: "creditnotes"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  sales_orders:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "sales_orders"
+      data_field: "salesorders"
+      path: "salesorders"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  expenses:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "expenses"
+      data_field: "expenses"
+      path: "expenses"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  recurring_invoices:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "recurring_invoices"
+      data_field: "recurring_invoices"
+      path: "recurringinvoices"
+      cursor_field: "recurring_invoice_id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  recurring_expenses:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "recurring_expenses"
+      data_field: "recurring_expenses"
+      path: "recurringexpenses"
+      cursor_field: "created_time"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  estimates:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "estimates"
+      data_field: "estimates"
+      path: "estimates"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  purchase_orders:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "purchase_orders"
+      data_field: "purchaseorders"
+      path: "purchaseorders"
+      cursor_field: "date"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  users:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "users"
+      data_field: "users"
+      path: "users"
+      cursor_field: "user_id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  items:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "items"
+      data_field: "items"
+      path: "items"
+      cursor_field: "item_id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
+  taxes:
+    $ref: "#/definitions/incremental_base_stream"
+    $parameters:
+      name: "taxes"
+      data_field: "taxes"
+      path: "taxes"
+      cursor_field: "tax_id"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/incremental_base_stream/retriever/requester"
+
 streams:
   - "#/definitions/invoices"
   - "#/definitions/bills"
   - "#/definitions/contacts"
-  - "#/definitions/banktransactions"
+  - "#/definitions/bank_transactions"
   - "#/definitions/vendor_payments"
+  - "#/definitions/customer_payments"
+  - "#/definitions/journals"
+  - "#/definitions/vendor_credits"
+  - "#/definitions/bank_accounts"
+  - "#/definitions/credit_notes"
+  - "#/definitions/sales_orders"
+  - "#/definitions/expenses"
+  - "#/definitions/recurring_invoices"
+  - "#/definitions/recurring_expenses"
+  - "#/definitions/estimates"
+  - "#/definitions/purchase_orders"
+  - "#/definitions/users"
+  - "#/definitions/items"
+  - "#/definitions/taxes"
+
 
 check:
   type: CheckStream
   stream_names:
     - "invoices"
     - "bills"
-    - contacts
+    - "contacts"
+    - "bank_transactions"
     - "vendor_payments"
-    - "banktransactions"
-    - "recurring_bills"
+    - "customer_payments"
+    - "journals"
+    - "vendor_credits"
+    - "bank_accounts"
+    - "credit_notes"
+    - "sales_orders"
+    - "expenses"
     - "recurring_invoices"
+    - "recurring_expenses"
+    - "estimates"
+    - "purchase_orders"
+    - "users"
+    - "items"
+    - "taxes"
 
 spec:
   type: Spec
