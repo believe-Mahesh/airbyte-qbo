@@ -20,6 +20,9 @@
       "domain": {
         "type": ["null", "string"]
       },
+      "status": {
+        "type": ["null", "string"]
+      },
       "sparse": {
         "type": ["null", "boolean"]
       },

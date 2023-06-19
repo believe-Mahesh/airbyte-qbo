@@ -73,6 +73,13 @@ definitions:
     $parameters:
       path: "/query?query=Select * from Invoice"
       data_field: "Invoice"
+  invoice_diff_stream:
+    $ref: "#/definitions/base_stream"
+    name: "invoice"
+    primary_key: "id"
+    $parameters:
+      path: "/cdc??entities=Invoice&changedSince={{ stream_slice.start_time }}"
+      data_field: "Invoice"      
   item_stream:
     $ref: "#/definitions/base_stream"
     name: "item"
