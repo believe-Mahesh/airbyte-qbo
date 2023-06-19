@@ -15,8 +15,11 @@ definitions:
     type: HttpRequester
     url_base: "{{ 'https://sandbox-quickbooks.api.intuit.com' if config.sandbox else 'https://quickbooks.api.intuit.com' }}"
     http_method: "GET"
-    #request_parameters:
-      #query: "SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+    request_parameters:
+      query: "SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      entities: "{{ parameters.table_name }}"
+      changedSince: "{{ stream_slice.start_time }}"
+
     request_headers:
       "Accept": "application/json"
       "User-Agent": "airbyte-connector"
@@ -67,7 +70,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Account"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   bill_payments:
     $ref: "#/definitions/base_stream"
@@ -75,7 +78,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "BillPayment"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   bills:
     $ref: "#/definitions/base_stream"
@@ -83,7 +86,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Bill"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   budgets:
     $ref: "#/definitions/base_stream"
@@ -92,7 +95,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Budget"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   classes:
     $ref: "#/definitions/base_stream"
@@ -101,7 +104,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Class"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   credit_memos:
     $ref: "#/definitions/base_stream"
@@ -109,7 +112,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "CreditMemo"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   customers:
     $ref: "#/definitions/base_stream"
@@ -118,7 +121,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Customer"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   departments:
     $ref: "#/definitions/base_stream"
@@ -127,7 +130,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Department"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   deposits:
     $ref: "#/definitions/base_stream"
@@ -135,7 +138,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Deposit"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   employees:
     $ref: "#/definitions/base_stream"
@@ -144,7 +147,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Employee"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   estimates:
     $ref: "#/definitions/base_stream"
@@ -152,7 +155,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Estimate"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   invoices:
     $ref: "#/definitions/base_stream"
@@ -160,7 +163,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Invoice"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
   
   invoices_cdc:
     $ref: "#/definitions/base_stream"
@@ -168,7 +171,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Invoice"
-      apiPath: "/cdc?entities=Invoice&changedSince={{ stream_slice.start_time }}"
+      apiPath: "/cdc"
 
   items:
     $ref: "#/definitions/base_stream"
@@ -177,7 +180,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Item"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   journal_entries:
     $ref: "#/definitions/base_stream"
@@ -185,7 +188,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "JournalEntry"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   payment_methods:
     $ref: "#/definitions/base_stream"
@@ -194,7 +197,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "PaymentMethod"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   payments:
     $ref: "#/definitions/base_stream"
@@ -202,7 +205,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Payment"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   purchase_orders:
     $ref: "#/definitions/base_stream"
@@ -210,7 +213,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "PurchaseOrder"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   purchases:
     $ref: "#/definitions/base_stream"
@@ -218,7 +221,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Purchase"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   refund_receipts:
     $ref: "#/definitions/base_stream"
@@ -226,7 +229,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "RefundReceipt"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   sales_receipts:
     $ref: "#/definitions/base_stream"
@@ -234,7 +237,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "SalesReceipt"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   tax_agencies:
     $ref: "#/definitions/base_stream"
@@ -242,7 +245,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "TaxAgency"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   tax_codes:
     $ref: "#/definitions/base_stream"
@@ -251,7 +254,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "TaxCode"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   tax_rates:
     $ref: "#/definitions/base_stream"
@@ -260,7 +263,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "TaxRate"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   terms:
     $ref: "#/definitions/base_stream"
@@ -269,7 +272,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Term"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   time_activities:
     $ref: "#/definitions/base_stream"
@@ -277,7 +280,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "TimeActivity"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   transfers:
     $ref: "#/definitions/base_stream"
@@ -285,7 +288,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Transfer"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   vendor_credits:
     $ref: "#/definitions/base_stream"
@@ -293,7 +296,7 @@ definitions:
     $parameters:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "VendorCredit"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
   vendors:
     $ref: "#/definitions/base_stream"
@@ -302,7 +305,7 @@ definitions:
       $ref: "#/definitions/base_stream/$parameters"
       table_name: "Vendor"
       additional_where: "AND Active IN (true, false)"
-      apiPath: "/query?query=SELECT * FROM {{ parameters.table_name }} WHERE Metadata.LastUpdatedTime > '{{ stream_slice.start_time }}' AND Metadata.LastUpdatedTime <= '{{ stream_slice.end_time }}' {{ parameters.additional_where }} ORDER BY Metadata.LastUpdatedTime ASC STARTPOSITION {{ (next_page_token.next_page_token or 0) + 1 }} MAXRESULTS {{ (config.max_results or '200') | int }}"
+      apiPath: "/query"
 
 streams:
   - "#/definitions/accounts"
