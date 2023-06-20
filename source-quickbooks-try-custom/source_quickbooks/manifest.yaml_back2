@@ -150,9 +150,9 @@ definitions:
       table_name: "Invoice"
       apiPath: "/query"
 
-streams: 
-  - "#/definitions/invoices"
+streams:
   - "#/definitions/invoices_cdc"
+  - "#/definitions/invoices"
 
 check:
   type: CheckStream
